@@ -1,11 +1,8 @@
+import { useState } from 'react';
+
 // eslint-disable-next-line react/prop-types
 function Section({ children }) {
-  return (
-    <div>
-      {children}
-      <button>Edit</button>
-    </div>
-  );
+  return <div>{children}</div>;
 }
 
 export default Section;
