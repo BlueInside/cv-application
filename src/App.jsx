@@ -1,9 +1,11 @@
-import PersonalInformationSection from './components/PersonalInformation';
+import CVHeader from './components/CVHeader';
+import EducationSection from './components/Education';
 export default function App() {
   return (
     <>
       <div>
-        <PersonalInformationSection></PersonalInformationSection>
+        <CVHeader />
+        <EducationSection />
       </div>
     </>
   );

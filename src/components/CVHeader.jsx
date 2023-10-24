@@ -16,7 +16,7 @@ function ContactDetails() {
   );
 }
 
-function PersonalInformationSection() {
+function CVHeader() {
   return (
     <>
       <Section>
@@ -27,4 +27,4 @@ function PersonalInformationSection() {
   );
 }
 
-export default PersonalInformationSection;
+export default CVHeader;
