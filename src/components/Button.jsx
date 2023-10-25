@@ -1,13 +1,9 @@
-function Button({
-  text,
-  color = 'black',
-  fontSize = '1rem',
-  handleClick = () => {},
-}) {
+function Button({ text, color, fontSize, handleClick }) {
   const buttonStyle = {
     color: color,
     fontSize: fontSize + 'px',
   };
+
   return (
     <button onClick={handleClick} style={buttonStyle}>
       {text}
@@ -15,4 +11,10 @@ function Button({
   );
 }
 
+Button.defaultProps = {
+  text: 'Button',
+  color: 'black',
+  fontSize: '1rem',
+  handleClick: () => {},
+};
 export default Button;
