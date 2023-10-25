@@ -12,18 +12,21 @@ const inputFields = [
   { value: 'postCode' },
 ];
 function ContactDetails({ user }) {
+  const { address, postCode, mobile, email } = user;
+
+  let county = user.county !== '' ? user.county + ',' : '';
+
   return (
     <div>
       <p>
-        {user.address}, {user.county !== '' && user.county + ','}{' '}
-        {user.postCode}
+        {address}, {county} {postCode}
       </p>
       <p>
         <span>
-          <b>M:</b> {user.mobile}{' '}
+          <b>M:</b> {mobile}{' '}
         </span>
         <span>
-          <b>E:</b> {user.email}
+          <b>E:</b> {email}
         </span>
       </p>
     </div>
