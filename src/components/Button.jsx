@@ -5,7 +5,7 @@ function Button({ text, color, fontSize, handleClick }) {
   };
 
   return (
-    <button onClick={handleClick} style={buttonStyle}>
+    <button onClick={handleClick} onSubmit={handleClick} style={buttonStyle}>
       {text}
     </button>
   );
