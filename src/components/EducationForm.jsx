@@ -12,15 +12,15 @@ export default function EducationForm({
   submitForm,
   closeForm,
   state,
-  editObject = null,
-}) {
-  const [inputValues, setInputsValues] = useState({
+  data = {
     schoolName: '',
     title: '',
     date: '',
     description: '',
-  });
-  if (editObject) setInputsValues(editObject);
+  },
+}) {
+  const [inputValues, setInputsValues] = useState(data);
+
   let formTitle = state === 'adding' ? 'Add education' : 'Edit education';
 
   function handleOnChange(e) {
@@ -73,7 +73,6 @@ export default function EducationForm({
               type={'submit'}
               handleClick={(e) => {
                 e.preventDefault();
-                closeForm(e);
                 if (!hasEmptyProperty(inputValues)) submitForm(inputValues);
               }}
             />
