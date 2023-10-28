@@ -1,30 +1,47 @@
+/* eslint-disable react/prop-types */
 import Section from './Section';
 
 // Used as key when creating new Job component
 let count = 0;
-const data = [
+
+// Data with all the jobs
+const worksData = [
   {
     id: 0,
+    companyName: 'some company',
+    position: 'janitor',
+    title: 'quick-mop',
+    responsibilities: [
+      'first responsibility',
+      'second responsibility',
+      'third responsibility',
+      'fourth responsibility',
+    ],
   },
 ];
-function JobResponsibilities() {
-  return (
-    <ul>
-      <li>First Responsibility</li>
-      <li>Second Responsibility</li>
-      <li>Third Responsibility</li>
-    </ul>
-  );
+
+// Render list element
+function ResponsibilitiesList({ responsibility }) {
+  return <li>{responsibility}</li>;
 }
 
-function Job() {
+// Job component that render information about the job
+function Job({ work }) {
+  const { id, companyName, position, title, responsibilities } = work;
+  const hasResponsibilities = responsibilities.length > 0;
+
   return (
     <>
-      <p>Company Name</p>
-      <p>position</p>
-      <p>title</p>
-      <p>responsibilities: </p>
-      <JobResponsibilities />
+      <p>{companyName}</p>
+      <p>{position}</p>
+      <p>{title}</p>
+      <p>{hasResponsibilities && 'Responsibilities: '}</p>
+      <ul>
+        {hasResponsibilities &&
+          responsibilities.map((responsibility) => (
+            <ResponsibilitiesList key={id} responsibility={responsibility} />
+          ))}
+      </ul>
     </>
   );
 }
@@ -34,7 +51,9 @@ function WorkExperience() {
     <>
       <Section>
         <h2>Practical Experience: </h2>
-        <Job />
+        {worksData.map((work) => (
+          <Job key={work.id} work={{ ...work }} />
+        ))}
       </Section>
     </>
   );
