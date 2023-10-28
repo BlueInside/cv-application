@@ -5,6 +5,7 @@ import { useState } from 'react';
 import EducationForm from './EducationForm';
 import { educationData } from './data';
 
+// Used as keys when creating new Education object
 let count = 0;
 
 function EducationSection() {
@@ -48,7 +49,7 @@ function EducationSection() {
   // Displays education information
   function School({ education }) {
     // Handles edit button
-    function handleClick(e) {
+    function handleClick() {
       // Finds edited education
       setEditEducationId(education.id);
 

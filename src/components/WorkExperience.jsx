@@ -1,5 +1,12 @@
 import Section from './Section';
 
+// Used as key when creating new Job component
+let count = 0;
+const data = [
+  {
+    id: 0,
+  },
+];
 function JobResponsibilities() {
   return (
     <ul>
@@ -22,7 +29,7 @@ function Job() {
   );
 }
 
-function Experience() {
+function WorkExperience() {
   return (
     <>
       <Section>
@@ -33,4 +40,4 @@ function Experience() {
   );
 }
 
-export default Experience;
+export default WorkExperience;

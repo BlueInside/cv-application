@@ -1,6 +1,6 @@
 import CVHeader from './components/CVHeader';
 import EducationSection from './components/Education';
-import Experience from './components/Experience';
+import WorkExperience from './components/WorkExperience';
 
 export default function App() {
   return (
@@ -8,7 +8,7 @@ export default function App() {
       <div>
         <CVHeader />
         <EducationSection />
-        <Experience />
+        <WorkExperience />
       </div>
     </>
   );
