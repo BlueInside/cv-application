@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import Section from './Section';
+import { formatDateToMonthYear } from './utils';
 
 // Used as key when creating new Job component
 let count = 0;
@@ -10,6 +11,8 @@ const worksData = [
     id: 0,
     companyName: 'some company',
     position: 'janitor',
+    startDate: '2023-05-18',
+    endDate: '2023-10-23',
     title: 'quick-mop',
     responsibilities: [
       'first responsibility',
@@ -28,11 +31,19 @@ function ResponsibilitiesList({ responsibility }) {
 // Job component that render information about the job
 function Job({ work }) {
   const { id, companyName, position, title, responsibilities } = work;
+
+  // Formats date using date-fns
+  const startDate = formatDateToMonthYear(work.startDate);
+  const endDate = formatDateToMonthYear(work.endDate);
+
   const hasResponsibilities = responsibilities.length > 0;
 
   return (
     <>
       <p>{companyName}</p>
+      <p>
+        {startDate} - {endDate}
+      </p>
       <p>{position}</p>
       <p>{title}</p>
       <p>{hasResponsibilities && 'Responsibilities: '}</p>
