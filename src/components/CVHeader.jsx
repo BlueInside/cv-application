@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Section from './Section';
 import { useState } from 'react';
 import Button from './Button';

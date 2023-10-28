@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Section from './Section';
 import Button from './Button';
 import { useState } from 'react';
@@ -8,23 +9,21 @@ let count = 0;
 
 function EducationSection() {
   const [education, setEducation] = useState(educationData);
-  // SHOULD I USE EDIT ?
   const [editEducationId, setEditEducationId] = useState('');
   const [state, setState] = useState('view');
 
+  // Finds School component that we wants to edit;
   const editEducation = education.filter(
     (item) => item.id === editEducationId
   )[0];
+
   const isAdding = state === 'add';
-  const isEdditing = state === 'edit';
+  const isEditing = state === 'edit';
   const isViewing = state === 'view';
 
-  //JUST FINISHED THIS
-  function handleSubmitForm(newEducation) {
-    if (isAdding) {
-      newEducation.id = count += 1;
-      setEducation([...education, newEducation]);
-    } else if (isEdditing) {
+  // Updates object in Education array after edit is done
+  function handleEditForm(newEducation) {
+    if (isEditing) {
       const updatedEducations = education.map((obj) => {
         if (obj.id === editEducationId) {
           return newEducation;
@@ -33,14 +32,27 @@ function EducationSection() {
       setEducation(updatedEducations);
     }
   }
+  // Adds new education on add to education state
+  function handleSubmitForm(newEducation) {
+    if (isAdding) {
+      newEducation.id = count += 1;
+      setEducation([...education, newEducation]);
+    }
+  }
 
+  // Closes form, hides edit, add Education components by setting view state
   function handleCloseForm(e) {
     e.preventDefault(), setState('view');
   }
 
+  // Displays education information
   function School({ education }) {
+    // Handles edit button
     function handleClick(e) {
+      // Finds edited education
       setEditEducationId(education.id);
+
+      // Sets state to edit, show edit inputs
       setState('edit');
     }
 
@@ -61,6 +73,7 @@ function EducationSection() {
 
   return (
     <Section>
+      {/* Renders input fields to add new Education*/}
       {isAdding && (
         <EducationForm
           state={'adding'}
@@ -68,11 +81,11 @@ function EducationSection() {
           closeForm={handleCloseForm}
         />
       )}
-      {/* TODO IMPLEMENT EDIT  */}
-      {isEdditing && (
+      {/* Renders edit input fields*/}
+      {isEditing && (
         <EducationForm
           state={'editing'}
-          submitForm={handleSubmitForm}
+          submitForm={handleEditForm}
           closeForm={handleCloseForm}
           data={editEducation}
         />

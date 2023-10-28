@@ -1,13 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import Button from './Button';
+import { hasEmptyProperty } from './utils';
 
-function hasEmptyProperty(object) {
-  for (const property in object) {
-    if (object[property] === '') return true;
-  }
-  return false;
-}
-// eslint-disable-next-line react/prop-types
 export default function EducationForm({
   submitForm,
   closeForm,
@@ -21,8 +16,10 @@ export default function EducationForm({
 }) {
   const [inputValues, setInputsValues] = useState(data);
 
+  //Changes form titles depending if user wants to add or edit
   let formTitle = state === 'adding' ? 'Add education' : 'Edit education';
 
+  //Updates input value on keypress
   function handleOnChange(e) {
     const newInputValues = { ...inputValues };
     newInputValues[e.target.id] = e.target.value;
@@ -76,6 +73,7 @@ export default function EducationForm({
                 if (!hasEmptyProperty(inputValues)) submitForm(inputValues);
               }}
             />
+            <Button text={'x'} handleClick={closeForm} />
           </fieldset>
         </legend>
       </form>
