@@ -12,4 +12,16 @@ function formatDateToMonthYear(isoDate) {
   return format(date, 'MMMM-yyyy');
 }
 
-export { hasEmptyProperty, formatDateToMonthYear };
+function formatLabel(property) {
+  // Split property name at each capital letter and join with spaces
+  let result = property.replace(/([A-Z])/g, ' $1').trim();
+  result = capitalizeFirstLetter(result);
+  return result;
+}
+
+function capitalizeFirstLetter(string) {
+  // Make first letter Capital
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export { hasEmptyProperty, formatDateToMonthYear, formatLabel };
