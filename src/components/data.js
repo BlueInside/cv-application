@@ -1,3 +1,4 @@
+// Data with all the educations
 const educationData = [
   {
     id: 0,
@@ -9,4 +10,21 @@ const educationData = [
   },
 ];
 
-export { educationData };
+// Data with all the jobs
+const worksData = [
+  {
+    id: 0,
+    companyName: 'some company',
+    position: 'janitor',
+    startDate: '2023-05-18',
+    endDate: '2023-10-23',
+    title: 'quick-mop',
+    responsibilities: [
+      'first responsibility',
+      'second responsibility',
+      'third responsibility',
+      'fourth responsibility',
+    ],
+  },
+];
+export { educationData, worksData };
