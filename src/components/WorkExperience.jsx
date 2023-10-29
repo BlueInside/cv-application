@@ -1,27 +1,13 @@
 /* eslint-disable react/prop-types */
+import { useState } from 'react';
 import Section from './Section';
 import { formatDateToMonthYear } from './utils';
+import { worksData } from './data';
+import Button from './Button';
+import DisplayWorkInputs from './DisplayWorkInputs';
 
 // Used as key when creating new Job component
-let count = 0;
-
-// Data with all the jobs
-const worksData = [
-  {
-    id: 0,
-    companyName: 'some company',
-    position: 'janitor',
-    startDate: '2023-05-18',
-    endDate: '2023-10-23',
-    title: 'quick-mop',
-    responsibilities: [
-      'first responsibility',
-      'second responsibility',
-      'third responsibility',
-      'fourth responsibility',
-    ],
-  },
-];
+let count = 1;
 
 // Render list element
 function ResponsibilitiesList({ responsibility }) {
@@ -30,7 +16,7 @@ function ResponsibilitiesList({ responsibility }) {
 
 // Job component that render information about the job
 function Job({ work }) {
-  const { id, companyName, position, title, responsibilities } = work;
+  const { companyName, position, title, responsibilities } = work;
 
   // Formats date using date-fns
   const startDate = formatDateToMonthYear(work.startDate);
@@ -50,7 +36,10 @@ function Job({ work }) {
       <ul>
         {hasResponsibilities &&
           responsibilities.map((responsibility) => (
-            <ResponsibilitiesList key={id} responsibility={responsibility} />
+            <ResponsibilitiesList
+              key={count++}
+              responsibility={responsibility}
+            />
           ))}
       </ul>
     </>
@@ -58,11 +47,47 @@ function Job({ work }) {
 }
 
 function WorkExperience() {
+  const [works, setWorks] = useState(worksData);
+  const [state, setState] = useState('view');
+  // const [worksId, setWorksId] = useState('');
+
+  const isEditing = state === 'edit';
+  const isAdding = state === 'add';
+
+  // Adds new works object into works array
+  function addWork(workObject) {
+    workObject.id = count++;
+    const newWorksObject = [...works, workObject];
+    setWorks(newWorksObject);
+  }
+
+  // Replaces edited object into works array
+  function editWork(editedWorkObject) {
+    const newWorksArray = works.map((work) => {
+      if (work.id === editedWorkObject.id) return editedWorkObject;
+      return work;
+    });
+    setWorks(newWorksArray);
+  }
+
+  // Handles cancel button, changes state to view hides form
+  function handleCancelButton(e) {
+    e.preventDefault();
+    setState('view');
+  }
+  // companyName, position, title, responsibilities
   return (
     <>
       <Section>
         <h2>Practical Experience: </h2>
-        {worksData.map((work) => (
+        <Button text={'+'} handleClick={() => setState('add')} />
+        {isAdding && (
+          <DisplayWorkInputs
+            work={{ ...works[0] }}
+            handleCancelButton={handleCancelButton}
+          />
+        )}
+        {works.map((work) => (
           <Job key={work.id} work={{ ...work }} />
         ))}
       </Section>

@@ -6,7 +6,7 @@ import EducationForm from './EducationForm';
 import { educationData } from './data';
 
 // Used as keys when creating new Education object
-let count = 0;
+let count = 1;
 
 function EducationSection() {
   const [education, setEducation] = useState(educationData);
