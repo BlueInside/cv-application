@@ -7,7 +7,7 @@ import Button from './Button';
 import DisplayWorkInputs from './DisplayWorkInputs';
 
 // Used as key when creating new Job component
-let count = 1;
+let count = 0;
 
 // Render list element
 function ResponsibilitiesList({ responsibility }) {
@@ -50,7 +50,15 @@ function WorkExperience() {
   const [works, setWorks] = useState(worksData);
   const [state, setState] = useState('view');
   // const [worksId, setWorksId] = useState('');
-
+  const newWorkData = {
+    id: count++,
+    companyName: '',
+    position: '',
+    startDate: '',
+    endDate: '',
+    title: '',
+    responsibilities: ['', '', ''],
+  };
   const isEditing = state === 'edit';
   const isAdding = state === 'add';
 
@@ -83,7 +91,7 @@ function WorkExperience() {
         <Button text={'+'} handleClick={() => setState('add')} />
         {isAdding && (
           <DisplayWorkInputs
-            work={{ ...works[0] }}
+            work={newWorkData}
             handleCancelButton={handleCancelButton}
           />
         )}

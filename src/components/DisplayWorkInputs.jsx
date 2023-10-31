@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Button from './Button';
 import LabeledInput from './LabeledInput';
 import { formatLabel } from './utils';
@@ -5,25 +6,8 @@ import { formatLabel } from './utils';
 // Used as key for DisplayResponsibilities and WorkInput
 let count = 0;
 
-// Creates labeled input
-function WorkInput({ work, property }) {
-  return (
-    <div key={count++}>
-      {/* Formats label based on property name space Capitals and UpperCase first letter */}
-
-      <LabeledInput
-        id={property}
-        // Implement value state?
-        value={work[property]}
-        label={formatLabel(property)}
-        // TODO make it controlled implement onChange
-      />
-    </div>
-  );
-}
-
 // Takes array of responsibilities and creates an input for each array element (responsibility)
-function DisplayResponsibilities({ responsibilities }) {
+function DisplayResponsibilities({ responsibilities, onChange }) {
   return (
     <>
       <p>Responsibilities: </p>
@@ -31,10 +15,8 @@ function DisplayResponsibilities({ responsibilities }) {
         <div key={count++}>
           <LabeledInput
             id={'responsibility' + index}
-            // TODO make it controlled !
             value={responsibility}
             label={index + 1}
-            // TODO implement onChange
           />
         </div>
       ))}
@@ -46,7 +28,6 @@ function DisplayResponsibilities({ responsibilities }) {
 function DisplayWorkInputs({ work, handleCancelButton }) {
   function inputList() {
     const inputFields = [];
-
     for (const property in work) {
       const currentProperty = work[property];
 
@@ -68,6 +49,21 @@ function DisplayWorkInputs({ work, handleCancelButton }) {
       }
     }
     return inputFields;
+  }
+
+  // Creates labeled input
+  function WorkInput({ work, property }) {
+    return (
+      <div key={count++}>
+        {/* Formats label based on property name space Capitals and UpperCase first letter */}
+        <LabeledInput
+          id={property}
+          // Implement value state?
+          value={work[property]}
+          label={formatLabel(property)}
+        />
+      </div>
+    );
   }
 
   const inputs = inputList();
