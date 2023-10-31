@@ -1,4 +1,5 @@
 import Button from './Button';
+import LabeledInput from './LabeledInput';
 import { formatLabel } from './utils';
 
 // Used as key for DisplayResponsibilities and WorkInput
@@ -9,14 +10,13 @@ function WorkInput({ work, property }) {
   return (
     <div key={count++}>
       {/* Formats label based on property name space Capitals and UpperCase first letter */}
-      <label htmlFor={property}>{formatLabel(property)}: </label>
-      <input
-        type="text"
+
+      <LabeledInput
         id={property}
         // Implement value state?
         value={work[property]}
-        // TODO make it controlled
-        onChange={(e) => e.target.value}
+        label={formatLabel(property)}
+        // TODO make it controlled implement onChange
       />
     </div>
   );
@@ -29,14 +29,12 @@ function DisplayResponsibilities({ responsibilities }) {
       <p>Responsibilities: </p>
       {responsibilities.map((responsibility, index) => (
         <div key={count++}>
-          {' '}
-          <label htmlFor={'responsibility' + index}>{index + 1}: </label>
-          <input
-            type="text"
+          <LabeledInput
             id={'responsibility' + index}
             // TODO make it controlled !
             value={responsibility}
-            onChange={(e) => e.target.value}
+            label={index + 1}
+            // TODO implement onChange
           />
         </div>
       ))}
