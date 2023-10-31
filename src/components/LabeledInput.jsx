@@ -1,13 +1,15 @@
-// eslint-disable-next-line react/prop-types
-function LabeledInput({ id, value, onChange, label, placeholder }) {
+import { useState } from 'react';
+
+function LabeledInput({ id, value, label, placeholder }) {
+  const [inputValue, setInputValue] = useState(value);
   return (
     <>
       <label htmlFor={id}>{label}: </label>
       <input
         type="text"
         id={id}
-        value={value}
-        onChange={onChange}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
         placeholder={placeholder}
       />
     </>
