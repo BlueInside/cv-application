@@ -1,7 +1,21 @@
 import { useState } from 'react';
-
-function LabeledInput({ id, value, label, placeholder }) {
+import { formatLabel } from './utils';
+function LabeledInput({
+  id,
+  value,
+  label,
+  placeholder,
+  updateInputValues,
+  property,
+  index,
+}) {
   const [inputValue, setInputValue] = useState(value);
+
+  LabeledInput.defaultProps = {
+    label: 'Default Label',
+    placeholder: 'Enter ' + formatLabel(id).toLowerCase() + ' here',
+    onChange: () => {},
+  };
   return (
     <>
       <label htmlFor={id}>{label}: </label>
@@ -9,16 +23,14 @@ function LabeledInput({ id, value, label, placeholder }) {
         type="text"
         id={id}
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(e) => {
+          updateInputValues(property, e.target.value, index);
+          setInputValue(e.target.value);
+        }}
         placeholder={placeholder}
       />
     </>
   );
 }
 
-LabeledInput.defaultProps = {
-  label: 'Default Label',
-  placeholder: 'Default Placeholder',
-  onChange: () => {},
-};
 export default LabeledInput;

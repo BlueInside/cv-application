@@ -49,23 +49,26 @@ function Job({ work }) {
 function WorkExperience() {
   const [works, setWorks] = useState(worksData);
   const [state, setState] = useState('view');
-  // const [worksId, setWorksId] = useState('');
   const newWorkData = {
-    id: count++,
-    companyName: '',
-    position: '',
-    startDate: '',
-    endDate: '',
-    title: '',
+    companyName: ' ',
+    position: ' ',
+    startDate: ' ',
+    endDate: ' ',
+    title: ' ',
     responsibilities: ['', '', ''],
   };
   const isEditing = state === 'edit';
   const isAdding = state === 'add';
 
+  // FINISHED HERE NEXT ADD CHECKS TO THE OBJECT DONT LET USER
+  // ADD EMPTY OBJECT ADD TIME PICKER FOR DATES
+  // LET USER ADD OR REMOVE RESPONSIBILITIES!
   // Adds new works object into works array
   function addWork(workObject) {
     workObject.id = count++;
-    const newWorksObject = [...works, workObject];
+    const newWorksObject = [...works];
+    newWorksObject.push(workObject);
+    console.log(newWorksObject);
     setWorks(newWorksObject);
   }
 
@@ -93,6 +96,7 @@ function WorkExperience() {
           <DisplayWorkInputs
             work={newWorkData}
             handleCancelButton={handleCancelButton}
+            handleAddButton={addWork}
           />
         )}
         {works.map((work) => (
