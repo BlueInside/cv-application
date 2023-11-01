@@ -11,7 +11,7 @@ function DateInput({
   property,
   index,
 }) {
-  const [state, setState] = useState('');
+  const [state, setState] = useState(value);
   DateInput.defaultProps = {
     label: 'Default',
     placeholder: 'Enter ' + formatLabel(id).toLowerCase() + ' here',
@@ -29,8 +29,8 @@ function DateInput({
         name={property}
         value={state}
         onChange={(e) => {
-          const monthYearDate = formatDateToMonthYear(e.target.value);
-          setState(e.target.value);
+          const monthYearDate = e.target.value;
+          setState(monthYearDate);
           updateInputValues(property, monthYearDate);
         }}
         placeholder={placeholder}
