@@ -55,7 +55,7 @@ function WorkExperience() {
     startDate: '',
     endDate: '',
     title: '',
-    responsibilities: ['', '', ''],
+    responsibilities: [],
   };
   const isEditing = state === 'edit';
   const isAdding = state === 'add';
