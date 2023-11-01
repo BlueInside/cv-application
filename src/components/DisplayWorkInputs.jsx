@@ -12,6 +12,7 @@ function DisplayResponsibilities({
   responsibilities,
   updateInputValues,
   property,
+  handleRemoveResponsibility,
 }) {
   return (
     <>
@@ -26,6 +27,10 @@ function DisplayResponsibilities({
             label={index + 1}
             updateInputValues={updateInputValues}
             placeholder={'Enter responsibility here.'}
+          />
+          <Button
+            text={'Remove Me'}
+            handleClick={(e) => handleRemoveResponsibility(e, index)}
           />
         </div>
       ))}
@@ -52,8 +57,10 @@ function WorkInput({ work, property, updateInputValues }) {
 
 // Component accepts work object and returns labeled inputs
 function DisplayWorkInputs({ work, handleCancelButton, handleAddButton }) {
-  let inputValues = { ...work };
-  const inputs = inputList(work);
+  const [workObject, setWorkObject] = useState({ ...work });
+
+  let inputValues = { ...workObject };
+  const inputs = inputList(inputValues);
 
   function updateInputValues(property, value, index = null) {
     // updates array when input comes from responsibilities field
@@ -67,6 +74,20 @@ function DisplayWorkInputs({ work, handleCancelButton, handleAddButton }) {
     } else if (property !== 'responsibilities') {
       inputValues = { ...inputValues, [property]: value };
     }
+  }
+
+  function addResponsibility(e) {
+    e.preventDefault();
+    const newWorksObject = { ...inputValues };
+    newWorksObject.responsibilities.push('');
+    setWorkObject(newWorksObject);
+  }
+
+  function handleRemoveResponsibility(e, index) {
+    e.preventDefault();
+    const newWorkObject = { ...inputValues };
+    newWorkObject.responsibilities.splice(index, 1);
+    setWorkObject(newWorkObject);
   }
 
   function inputList(work) {
@@ -86,6 +107,15 @@ function DisplayWorkInputs({ work, handleCancelButton, handleAddButton }) {
             label={formatLabel(property)}
           />
         );
+      } else if (property !== 'responsibilities') {
+        inputFields.push(
+          <WorkInput
+            key={property}
+            work={work}
+            property={property}
+            updateInputValues={updateInputValues}
+          />
+        );
       }
       // Create inputs for each responsibilities Array item
       else if (Array.isArray(currentProperty) && currentProperty.length > 0) {
@@ -95,15 +125,7 @@ function DisplayWorkInputs({ work, handleCancelButton, handleAddButton }) {
             key={property}
             responsibilities={currentProperty}
             updateInputValues={updateInputValues}
-          />
-        );
-      } else {
-        inputFields.push(
-          <WorkInput
-            key={property}
-            work={work}
-            property={property}
-            updateInputValues={updateInputValues}
+            handleRemoveResponsibility={handleRemoveResponsibility}
           />
         );
       }
@@ -117,6 +139,10 @@ function DisplayWorkInputs({ work, handleCancelButton, handleAddButton }) {
       <legend>
         <fieldset>
           {inputs.map((input) => input)}
+          <Button
+            text={'Add Responsibility'}
+            handleClick={(e) => addResponsibility(e)}
+          />
           <Button text={'Cancel'} handleClick={handleCancelButton} />
           <Button
             text={'Add'}
