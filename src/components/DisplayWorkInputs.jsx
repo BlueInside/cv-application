@@ -56,7 +56,7 @@ function WorkInput({ work, property, updateInputValues }) {
 }
 
 // Component accepts work object and returns labeled inputs
-function DisplayWorkInputs({ work, handleCancelButton, handleAddButton }) {
+function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
   const [workObject, setWorkObject] = useState({ ...work });
 
   let inputValues = { ...workObject };
@@ -102,6 +102,7 @@ function DisplayWorkInputs({ work, handleCancelButton, handleAddButton }) {
           <DateInput
             key={property}
             id={property}
+            value={currentProperty}
             property={property}
             updateInputValues={updateInputValues}
             label={formatLabel(property)}
@@ -145,9 +146,9 @@ function DisplayWorkInputs({ work, handleCancelButton, handleAddButton }) {
           />
           <Button text={'Cancel'} handleClick={handleCancelButton} />
           <Button
-            text={'Add'}
+            text={'Save'}
             handleClick={(e) => {
-              e.preventDefault(), handleAddButton(inputValues);
+              e.preventDefault(), handleSaveButton(inputValues);
             }}
           />
         </fieldset>
