@@ -19,10 +19,6 @@ function Job({ work }) {
   const { companyName, position, title, responsibilities, startDate, endDate } =
     work;
 
-  // Formats date using date-fns
-  // const startDate = formatDateToMonthYear(work.startDate);
-  // const endDate = formatDateToMonthYear(work.endDate);
-
   const hasResponsibilities = responsibilities.length > 0;
 
   return (

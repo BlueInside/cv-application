@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { formatDateToMonthYear } from './utils';
 import { formatLabel } from './utils';
-formatDateToMonthYear;
+
 function DateInput({
   id,
   value,

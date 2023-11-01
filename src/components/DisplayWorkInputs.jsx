@@ -59,6 +59,7 @@ function WorkInput({ work, property, updateInputValues }) {
 function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
   const [workObject, setWorkObject] = useState({ ...work });
 
+  // Stores values of displayed inputs
   let inputValues = { ...workObject };
   const inputs = inputList(inputValues);
 
@@ -76,6 +77,7 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
     }
   }
 
+  // Adds empty responsibility to the work object
   function addResponsibility(e) {
     e.preventDefault();
     const newWorksObject = { ...inputValues };
@@ -83,6 +85,7 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
     setWorkObject(newWorksObject);
   }
 
+  // Removes responsibility element from responsibilities array inside work object
   function handleRemoveResponsibility(e, index) {
     e.preventDefault();
     const newWorkObject = { ...inputValues };
@@ -90,6 +93,7 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
     setWorkObject(newWorkObject);
   }
 
+  // Creates array with inputs based on work object
   function inputList(work) {
     const inputFields = [];
     for (const property in inputValues) {
@@ -108,6 +112,7 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
             label={formatLabel(property)}
           />
         );
+        // creates input for property that is not a date or array
       } else if (property !== 'responsibilities') {
         inputFields.push(
           <WorkInput
@@ -118,7 +123,7 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
           />
         );
       }
-      // Create inputs for each responsibilities Array item
+      // Create inputs for each responsibilities Array property
       else if (Array.isArray(currentProperty) && currentProperty.length > 0) {
         inputFields.push(
           <DisplayResponsibilities
