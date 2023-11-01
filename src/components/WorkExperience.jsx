@@ -16,11 +16,12 @@ function ResponsibilitiesList({ responsibility }) {
 
 // Job component that render information about the job
 function Job({ work }) {
-  const { companyName, position, title, responsibilities } = work;
+  const { companyName, position, title, responsibilities, startDate, endDate } =
+    work;
 
   // Formats date using date-fns
-  const startDate = formatDateToMonthYear(work.startDate);
-  const endDate = formatDateToMonthYear(work.endDate);
+  // const startDate = formatDateToMonthYear(work.startDate);
+  // const endDate = formatDateToMonthYear(work.endDate);
 
   const hasResponsibilities = responsibilities.length > 0;
 
@@ -28,7 +29,7 @@ function Job({ work }) {
     <>
       <p>{companyName}</p>
       <p>
-        {startDate} - {endDate}
+        {formatDateToMonthYear(startDate)} - {formatDateToMonthYear(endDate)}
       </p>
       <p>{position}</p>
       <p>{title}</p>
@@ -48,6 +49,7 @@ function Job({ work }) {
 
 function WorkExperience() {
   const [works, setWorks] = useState(worksData);
+  const [editWorkId, setEditWorkId] = useState('');
   const [state, setState] = useState('view');
   const newWorkData = {
     companyName: '',
@@ -57,19 +59,19 @@ function WorkExperience() {
     title: '',
     responsibilities: [],
   };
+  const selectedWorkObject = works.filter((work) => work.id === editWorkId)[0];
   const isEditing = state === 'edit';
   const isAdding = state === 'add';
-
   // FINISHED HERE NEXT ADD CHECKS TO THE OBJECT DON'T LET USER
-  // ADD EMPTY OBJECT ADD TIME PICKER FOR DATES
-  // LET USER ADD OR REMOVE RESPONSIBILITIES!
   // Adds new works object into works array
+
   function addWork(workObject) {
     workObject.id = count++;
     const newWorksObject = [...works];
     newWorksObject.push(workObject);
     console.log(newWorksObject);
     setWorks(newWorksObject);
+    setState('view');
   }
 
   // Replaces edited object into works array
@@ -79,6 +81,7 @@ function WorkExperience() {
       return work;
     });
     setWorks(newWorksArray);
+    setState('view');
   }
 
   // Handles cancel button, changes state to view hides form
@@ -86,21 +89,34 @@ function WorkExperience() {
     e.preventDefault();
     setState('view');
   }
+
+  function handleEditButton(e, id) {
+    e.preventDefault(e);
+    setState('edit');
+    setEditWorkId(id);
+  }
   // companyName, position, title, responsibilities
   return (
     <>
       <Section>
         <h2>Practical Experience: </h2>
         <Button text={'+'} handleClick={() => setState('add')} />
-        {isAdding && (
+        {(isAdding || isEditing) && (
           <DisplayWorkInputs
-            work={newWorkData}
+            work={isAdding ? newWorkData : selectedWorkObject}
             handleCancelButton={handleCancelButton}
-            handleAddButton={addWork}
+            handleSaveButton={isEditing ? editWork : addWork}
           />
         )}
+
         {works.map((work) => (
-          <Job key={work.id} work={{ ...work }} />
+          <div key={work.id}>
+            <Job work={{ ...work }} />
+            <Button
+              text={'Edit'}
+              handleClick={(e) => handleEditButton(e, work.id)}
+            />
+          </div>
         ))}
       </Section>
     </>
