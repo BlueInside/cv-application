@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Button from './Button';
 import LabeledInput from './LabeledInput';
+import DateInput from './DateInput';
 import { formatLabel } from './utils';
 
 // Used as key for DisplayResponsibilities and WorkInput
@@ -75,9 +76,19 @@ function DisplayWorkInputs({ work, handleCancelButton, handleAddButton }) {
 
       // Doesn't make input for id property
       if (property === 'id') continue;
-
+      else if (property === 'startDate' || property === 'endDate') {
+        inputFields.push(
+          <DateInput
+            key={property}
+            id={property}
+            property={property}
+            updateInputValues={updateInputValues}
+            label={formatLabel(property)}
+          />
+        );
+      }
       // Create inputs for each responsibilities Array item
-      if (Array.isArray(currentProperty) && currentProperty.length > 0) {
+      else if (Array.isArray(currentProperty) && currentProperty.length > 0) {
         inputFields.push(
           <DisplayResponsibilities
             property={property}
