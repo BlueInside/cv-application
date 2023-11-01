@@ -50,17 +50,17 @@ function WorkExperience() {
   const [works, setWorks] = useState(worksData);
   const [state, setState] = useState('view');
   const newWorkData = {
-    companyName: ' ',
-    position: ' ',
-    startDate: ' ',
-    endDate: ' ',
-    title: ' ',
+    companyName: '',
+    position: '',
+    startDate: '',
+    endDate: '',
+    title: '',
     responsibilities: ['', '', ''],
   };
   const isEditing = state === 'edit';
   const isAdding = state === 'add';
 
-  // FINISHED HERE NEXT ADD CHECKS TO THE OBJECT DONT LET USER
+  // FINISHED HERE NEXT ADD CHECKS TO THE OBJECT DON'T LET USER
   // ADD EMPTY OBJECT ADD TIME PICKER FOR DATES
   // LET USER ADD OR REMOVE RESPONSIBILITIES!
   // Adds new works object into works array

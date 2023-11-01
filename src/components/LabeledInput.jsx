@@ -16,6 +16,7 @@ function LabeledInput({
     placeholder: 'Enter ' + formatLabel(id).toLowerCase() + ' here',
     onChange: () => {},
   };
+
   return (
     <>
       <label htmlFor={id}>{label}: </label>
