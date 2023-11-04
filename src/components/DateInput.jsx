@@ -32,7 +32,7 @@ function DateInput({
   return (
     <>
       <label htmlFor={id}>
-        {label}
+        {label}*{' '}
         <input
           type="date"
           id={id}

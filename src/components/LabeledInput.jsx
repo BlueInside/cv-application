@@ -29,7 +29,7 @@ function LabeledInput({
 
   return (
     <>
-      <label htmlFor={id}>{label}: </label>
+      <label htmlFor={id}>{label}:* </label>
       <input
         type="text"
         id={id}
