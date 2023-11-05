@@ -13,6 +13,8 @@ function DisplayResponsibilities({
   updateInputValues,
   property,
   handleRemoveResponsibility,
+  editErrorsObject,
+  validateResponsibilities,
 }) {
   return (
     <>
@@ -27,6 +29,8 @@ function DisplayResponsibilities({
             label={index + 1}
             updateInputValues={updateInputValues}
             placeholder={'Enter responsibility here.'}
+            editErrorsObject={editErrorsObject}
+            validateResponsibilities={validateResponsibilities}
           />
           <Button
             text={'Remove Me'}
@@ -39,7 +43,7 @@ function DisplayResponsibilities({
 }
 
 // Creates labeled input
-function WorkInput({ work, property, updateInputValues }) {
+function WorkInput({ work, property, updateInputValues, editErrorsObject }) {
   return (
     <div key={count++}>
       {/* Formats label based on property name space Capitals and UpperCase first letter */}
@@ -50,6 +54,7 @@ function WorkInput({ work, property, updateInputValues }) {
         label={formatLabel(property)}
         placeholder={'Enter ' + formatLabel(property).toLowerCase() + ' here.'}
         updateInputValues={updateInputValues}
+        editErrorsObject={editErrorsObject}
       />
     </div>
   );
@@ -58,7 +63,8 @@ function WorkInput({ work, property, updateInputValues }) {
 // Component accepts work object and returns labeled inputs
 function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
   const [workObject, setWorkObject] = useState({ ...work });
-
+  // Object that will store errors from all inputs that occur on change
+  let errors = {};
   // Stores values of displayed inputs
   let inputValues = { ...workObject };
   const inputs = inputList(inputValues);
@@ -74,6 +80,58 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
       };
     } else if (property !== 'responsibilities') {
       inputValues = { ...inputValues, [property]: value };
+    }
+  }
+
+  function hasAnyErrors() {
+    for (const error in errors) {
+      if (errors[error]) return true;
+    }
+    return false;
+  }
+
+  function editErrorsObject(property, value) {
+    if (property === 'responsibilities') {
+      const newErrorsObject = {
+        ...errors,
+        [property]: validateResponsibilities(),
+      };
+      errors = newErrorsObject;
+    } else {
+      const newErrorsObject = { ...errors, [property]: value };
+      errors = newErrorsObject;
+    }
+    console.log(errors);
+  }
+
+  // ERRORS
+  function validateInput(property, value) {
+    const hasMaxLengthValidation =
+      property === 'companyName' || property === 'position';
+    const hasSpecialCharsValidation =
+      property === 'companyName' || property === 'position';
+    const validPattern = /^[\p{L}\s.,!?&-]*$/u;
+    if (value === '') {
+      editErrorsObject(property, true);
+    } else if (hasMaxLengthValidation && value.length > 50) {
+      editErrorsObject(property, true);
+    } else if (hasSpecialCharsValidation && !validPattern.test(value)) {
+      editErrorsObject(property, true);
+    } else {
+      editErrorsObject(property, false);
+    }
+  }
+
+  function validateResponsibilities() {
+    const respArr = inputValues.responsibilities;
+    if (respArr) {
+      for (let index = 0; index < respArr.length; index++) {
+        const resp = respArr[index];
+        if (resp.trim() === '') return true;
+      }
+      return false;
+    } else {
+      return false;
     }
   }
 
@@ -98,10 +156,14 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
     const inputFields = [];
     for (const property in inputValues) {
       const currentProperty = work[property];
-
-      // Doesn't make input for id property
       if (property === 'id') continue;
-      else if (property === 'startDate' || property === 'endDate') {
+
+      if (property === 'responsibilities') {
+        editErrorsObject(property, validateResponsibilities());
+      } else if (property) validateInput(property, work[property]);
+      // Doesn't make input for id property
+      // if (property === 'id') continue;
+      if (property === 'startDate' || property === 'endDate') {
         inputFields.push(
           <DateInput
             key={property}
@@ -110,6 +172,7 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
             property={property}
             updateInputValues={updateInputValues}
             label={formatLabel(property)}
+            editErrorsObject={editErrorsObject}
           />
         );
         // creates input for property that is not a date or array
@@ -120,6 +183,7 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
             work={work}
             property={property}
             updateInputValues={updateInputValues}
+            editErrorsObject={editErrorsObject}
           />
         );
       }
@@ -132,6 +196,8 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
             responsibilities={currentProperty}
             updateInputValues={updateInputValues}
             handleRemoveResponsibility={handleRemoveResponsibility}
+            editErrorsObject={editErrorsObject}
+            validateResponsibilities={validateResponsibilities}
           />
         );
       }
@@ -153,7 +219,11 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
           <Button
             text={'Save'}
             handleClick={(e) => {
-              e.preventDefault(), handleSaveButton(inputValues);
+              e.preventDefault();
+              if (hasAnyErrors()) console.log('Errors');
+              else {
+                handleSaveButton(inputValues);
+              }
             }}
           />
         </fieldset>
