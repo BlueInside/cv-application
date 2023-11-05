@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { formatLabel } from './utils';
 function LabeledInput({
   id,
@@ -8,25 +8,41 @@ function LabeledInput({
   updateInputValues,
   property,
   index,
+  editErrorsObject,
+  validateResponsibilities,
 }) {
   const [error, setError] = useState('');
   const [inputValue, setInputValue] = useState(value);
+  // Display errors on initial render
+  useEffect(() => {
+    validateText(inputValue);
+    // console.log(editErrorsObject);
+  });
   const hasError = error !== '';
 
+  const hasMaxLengthValidation =
+    property === 'companyName' || property === 'position';
+  const hasSpecialCharsValidation =
+    property === 'companyName' || property === 'position';
+  const validPattern = /^[\p{L}\s.,!?&-]*$/u;
+  const isResponsibility = property === 'responsibilities';
   function validateText(value) {
+    if (isResponsibility) validateResponsibilities();
     if (value.trim() === '') {
-      setError('This field cannot be empty');
+      setError('This field cannot be empty.');
+      editErrorsObject(property, true);
+    } else if (hasMaxLengthValidation && value.length > 50) {
+      setError('Max 50 characters length.');
+      editErrorsObject(property, true);
+    } else if (hasSpecialCharsValidation && !validPattern.test(value)) {
+      setError(`Invalid characters in the field.`);
+      editErrorsObject(property, true);
     } else {
       setError('');
+      editErrorsObject(property, false);
     }
   }
-
-  LabeledInput.defaultProps = {
-    label: 'Default Label',
-    placeholder: 'Enter ' + formatLabel(id).toLowerCase() + ' here',
-    onChange: () => {},
-  };
-
+  // ADD ERROR TO LABELED INPUT WE HAVE INDEX!
   return (
     <>
       <label htmlFor={id}>{label}:* </label>
@@ -38,14 +54,18 @@ function LabeledInput({
         onChange={(e) => {
           setInputValue(e.target.value);
           validateText(e.target.value);
-          if (!hasError) {
-            updateInputValues(property, e.target.value, index);
-          }
+          updateInputValues(property, e.target.value, index);
         }}
       />
       {error && <p>{error}</p>}
     </>
   );
 }
+
+LabeledInput.defaultProps = {
+  label: 'Default Label',
+  placeholder: 'Default placeholder',
+  onChange: () => {},
+};
 
 export default LabeledInput;
