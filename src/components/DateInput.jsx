@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { formatLabel } from './utils';
 
 function DateInput({
@@ -9,18 +9,25 @@ function DateInput({
   updateInputValues,
   property,
   index,
+  editErrorsObject,
 }) {
   const [error, setError] = useState('');
   const [state, setState] = useState(value);
   const hasError = error !== '';
+  useEffect(() => {
+    validateDate(state);
+  });
 
   function validateDate(value) {
     if (!value) {
       setError('Please choose correct date');
+      editErrorsObject(property, true);
     } else {
       setError('');
+      editErrorsObject(property, false);
     }
   }
+
   DateInput.defaultProps = {
     label: 'Default',
     placeholder: 'Enter ' + formatLabel(id).toLowerCase() + ' here',
@@ -43,9 +50,7 @@ function DateInput({
             const monthYearDate = e.target.value;
             setState(monthYearDate);
             validateDate(e.target.value);
-            if (!hasError) {
-              updateInputValues(property, monthYearDate);
-            }
+            updateInputValues(property, monthYearDate);
           }}
           placeholder={placeholder}
         />
