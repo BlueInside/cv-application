@@ -6,7 +6,7 @@ function Button({ text, color, fontSize, handleClick }) {
   };
 
   return (
-    <button onClick={handleClick} onSubmit={handleClick} style={buttonStyle}>
+    <button onClick={handleClick} onSubmit={handleClick}>
       {text}
     </button>
   );
@@ -17,5 +17,6 @@ Button.defaultProps = {
   color: 'black',
   fontSize: '1rem',
   handleClick: () => {},
+  disabled: false,
 };
 export default Button;
