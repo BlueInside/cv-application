@@ -4,6 +4,7 @@ import Button from './Button';
 import { useState } from 'react';
 import EducationForm from './EducationForm';
 import { educationData } from './data';
+import '../styles/education.css';
 // Used as keys when creating new Education object
 let count = 1;
 
@@ -57,22 +58,24 @@ function EducationSection() {
     }
 
     return (
-      <>
-        <div>
-          <p>{education.schoolName}</p>
-          <p>{education.title}</p>
+      <div className="description">
+        <div className="educationSchoolTitleSection">
+          <p style={{ flex: '3' }}>{education.schoolName}</p>
+          <p style={{ flex: '1' }}>{education.title}</p>
         </div>
-        <div>
+        <div className="educationDescriptionDateSection">
           <p>{education.description} </p>
-          <p>{education.date}</p>
+          <p style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            {education.date}
+          </p>
         </div>
         <Button text={'edit'} handleClick={handleClick} />
-      </>
+      </div>
     );
   }
 
   return (
-    <Section>
+    <Section className={'education'}>
       {/* Renders input fields to add new Education*/}
       {isAdding && (
         <EducationForm
@@ -90,8 +93,16 @@ function EducationSection() {
           data={editEducation}
         />
       )}
-      <h2>Education</h2>
-      <Button text={'+'} handleClick={() => setState('add')} />
+      <hr className="separator"></hr>
+      <div className="titleWrapper">
+        <h2 className="title">Education</h2>
+        <Button
+          text={'+'}
+          handleClick={() => setState('add')}
+          className={'button addButton'}
+        />
+      </div>
+
       {education.map((education) => (
         <School key={education.id} education={education} />
       ))}

@@ -1,0 +1,41 @@
+body {
+  margin: 20px;
+  max-width: 900px;
+}
+.separator {
+  border-top: 1px solid #ccc; /* Adjust the color and thickness as needed */
+  margin-top: 20px; /* Adjust the spacing between sections */
+  margin-bottom: 20px; /* Adjust the spacing between sections */
+  border: 3px solid #3498db;
+}
+
+.backdrop {
+  top: 0;
+  background-color: #97bed0;
+  opacity: 0.8;
+  left: 0;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+}
+
+.description {
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+.titleWrapper {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+.addButton {
+  font-size: 2.2rem;
+  padding: 5px 15px;
+}
+
+@media (min-width: 900px) {
+  body {
+    margin: auto;
+  }
+}

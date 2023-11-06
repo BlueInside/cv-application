@@ -1,0 +1,37 @@
+h2 {
+  font-size: 2rem;
+}
+
+.title {
+  margin-left: 1rem;
+}
+
+.educationSchoolTitleSection {
+  display: flex;
+}
+
+.educationFormInputs {
+  display: flex;
+  flex-direction: column;
+}
+.educationFormInputs input {
+  height: 3rem;
+}
+.buttonsContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 3rem;
+}
+
+.educationForm {
+  position: relative;
+  margin-top: 1.2rem;
+  font-size: 1.2rem;
+}
+
+.exitBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

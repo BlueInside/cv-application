@@ -94,7 +94,8 @@ function WorkExperience() {
   // companyName, position, title, responsibilities
   return (
     <>
-      <Section>
+      <Section className={'work'}>
+        <hr className="separator"></hr>
         <h2>Practical Experience: </h2>
         <Button text={'+'} handleClick={() => setState('add')} />
         {(isAdding || isEditing) && (
