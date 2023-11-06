@@ -64,6 +64,7 @@ function WorkInput({ work, property, updateInputValues, editErrorsObject }) {
 // Component accepts work object and returns labeled inputs
 function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
   const [workObject, setWorkObject] = useState({ ...work });
+  const [isFormInvalid, setIsFormInvalid] = useState(false);
   // Object that will store errors from all inputs that occur on change
   let errors = {};
   // Stores values of displayed inputs
@@ -104,7 +105,6 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
       const newErrorsObject = { ...errors, [property]: value };
       errors = newErrorsObject;
     }
-    console.log(errors);
   }
 
   // validates inputs during rendering
@@ -116,6 +116,7 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
     // Properties that have special chars validation
     const hasSpecialCharsValidation =
       property === 'companyName' || property === 'position';
+
     // Regex pattern for special chars validation
     const validPattern = /^[\p{L}\s.,!?&-]*$/u;
 
@@ -175,13 +176,14 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
     const inputFields = [];
     for (const property in inputValues) {
       const currentProperty = work[property];
+
+      // Doesn't make input for id property
       if (property === 'id') continue;
 
       if (property === 'responsibilities') {
+        // For responsibilities array decide whether its true of false by checking whole array
         editErrorsObject(property, validateResponsibilities());
       } else if (property) validateInput(property, work[property]);
-      // Doesn't make input for id property
-      // if (property === 'id') continue;
       if (property === 'startDate' || property === 'endDate') {
         inputFields.push(
           <DateInput
@@ -234,14 +236,16 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
             text={'Add Responsibility'}
             handleClick={(e) => addResponsibility(e)}
           />
+          {isFormInvalid && <p>Please correct above errors before saving!</p>}
           <Button text={'Cancel'} handleClick={handleCancelButton} />
           <Button
             text={'Save'}
             handleClick={(e) => {
               e.preventDefault();
               // TODO don't console log error but display it !
-              if (hasAnyErrors()) console.log('Errors');
+              if (hasAnyErrors()) setIsFormInvalid(true);
               else {
+                setIsFormInvalid(false);
                 handleSaveButton(inputValues);
               }
             }}
