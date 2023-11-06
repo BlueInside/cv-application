@@ -236,13 +236,14 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
             text={'Add Responsibility'}
             handleClick={(e) => addResponsibility(e)}
           />
+
+          {/* TODO Make p show and hide after few seconds with CSS */}
           {isFormInvalid && <p>Please correct above errors before saving!</p>}
           <Button text={'Cancel'} handleClick={handleCancelButton} />
           <Button
             text={'Save'}
             handleClick={(e) => {
               e.preventDefault();
-              // TODO don't console log error but display it !
               if (hasAnyErrors()) setIsFormInvalid(true);
               else {
                 setIsFormInvalid(false);
