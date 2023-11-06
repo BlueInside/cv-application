@@ -15,6 +15,7 @@ export default function EducationForm({
   },
 }) {
   const [inputValues, setInputsValues] = useState(data);
+  const [isFormValid, setIsFormValid] = useState(true);
 
   //Changes form titles depending if user wants to add or edit
   let formTitle = state === 'adding' ? 'Add education' : 'Edit education';
@@ -64,13 +65,25 @@ export default function EducationForm({
               value={inputValues.description}
               onChange={handleOnChange}
             />
+
+            {/* TODO Made it disappear after few seconds */}
+            {!isFormValid && <p>Please fill all the fields!</p>}
             <Button text={'Cancel'} handleClick={closeForm} />
             <Button
               text={'Save'}
               type={'submit'}
               handleClick={(e) => {
                 e.preventDefault();
-                if (!hasEmptyProperty(inputValues)) submitForm(inputValues);
+                // Checks if any input is not empty string
+                if (!hasEmptyProperty(inputValues)) {
+                  setIsFormValid(true);
+                  submitForm(inputValues);
+                }
+
+                // Display error to user !
+                else {
+                  setIsFormValid(false);
+                }
               }}
             />
             <Button text={'x'} handleClick={closeForm} />
