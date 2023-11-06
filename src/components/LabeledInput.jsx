@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
-import { formatLabel } from './utils';
 function LabeledInput({
   id,
   value,
@@ -16,28 +16,40 @@ function LabeledInput({
   // Display errors on initial render
   useEffect(() => {
     validateText(inputValue);
-    // console.log(editErrorsObject);
   });
-  const hasError = error !== '';
 
+  // Properties that require maxLength validation
   const hasMaxLengthValidation =
     property === 'companyName' || property === 'position';
+
+  // Properties that require special chars validation
   const hasSpecialCharsValidation =
     property === 'companyName' || property === 'position';
   const validPattern = /^[\p{L}\s.,!?&-]*$/u;
+
+  // Checks if property is a responsibilities array
   const isResponsibility = property === 'responsibilities';
+
+  // Validates input value
   function validateText(value) {
     if (isResponsibility) validateResponsibilities();
+
     if (value.trim() === '') {
       setError('This field cannot be empty.');
       editErrorsObject(property, true);
-    } else if (hasMaxLengthValidation && value.length > 50) {
+    }
+    // Checks if input has right number of characters
+    else if (hasMaxLengthValidation && value.length > 50) {
       setError('Max 50 characters length.');
       editErrorsObject(property, true);
-    } else if (hasSpecialCharsValidation && !validPattern.test(value)) {
+    }
+    //checks for special characters (Language special chars are excluded from checking)
+    else if (hasSpecialCharsValidation && !validPattern.test(value)) {
       setError(`Invalid characters in the field.`);
       editErrorsObject(property, true);
-    } else {
+    }
+    // Hides error message and add property as false into errors object
+    else {
       setError('');
       editErrorsObject(property, false);
     }
