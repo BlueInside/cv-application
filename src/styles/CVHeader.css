@@ -1,0 +1,14 @@
+.h1 {
+}
+
+.headerInputs {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: auto;
+}
+
+.headerInput {
+  text-align: center;
+  height: 1.8rem;
+}

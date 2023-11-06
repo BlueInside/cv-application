@@ -4,7 +4,7 @@ import Button from './Button';
 import { useState } from 'react';
 import EducationForm from './EducationForm';
 import { educationData } from './data';
-
+import '../styles/CVHeader.css';
 // Used as keys when creating new Education object
 let count = 1;
 

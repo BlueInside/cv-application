@@ -2,7 +2,7 @@
 import Section from './Section';
 import { useState } from 'react';
 import Button from './Button';
-
+import '../styles/CVHeader.css';
 const inputFields = [
   { value: 'name' },
   { value: 'surname' },
@@ -36,9 +36,10 @@ function ContactDetails({ user }) {
 
 function EditUserInfoFields({ user, handleInputChange }) {
   return (
-    <div>
+    <div className="headerInputs">
       {inputFields.map((input) => (
         <input
+          className="headerInput"
           key={input.index}
           placeholder={input.value}
           value={user[input.value]}
