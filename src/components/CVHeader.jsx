@@ -107,7 +107,7 @@ function CVHeader() {
           }}
         />
         <Button
-          className={'button editHeaderButton'}
+          className={'button editHeaderBtn'}
           handleClick={handleClick}
           text={editOrCloseButtonText}
         />
