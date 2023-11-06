@@ -1,0 +1,46 @@
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff; /* Button background color */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+/* Button hover effect */
+.button:hover {
+  background-color: #0056b3; /* Button background color on hover */
+}
+
+/* Save Button Styles */
+.saveButton {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 8rem;
+  height: 5rem;
+  margin: 2rem auto;
+  transform: translateX(55px);
+}
+
+.saveButton:hover {
+  background-color: #051d29; /* Slightly darker shade on hover */
+}
+
+/* Disabled State */
+.saveButton:disabled {
+  background-color: #b3b3b3; /* Gray for disabled state */
+  cursor: not-allowed;
+}
+
+/* Add some margin for spacing */
+.saveButtonContainer {
+  margin-top: 20px;
+}

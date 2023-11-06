@@ -1,6 +1,6 @@
 // eslint-disable-next-line react/prop-types
-function Section({ children }) {
-  return <div>{children}</div>;
+function Section({ children, className }) {
+  return <div className={className}>{children}</div>;
 }
 
 export default Section;

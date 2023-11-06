@@ -1,0 +1,45 @@
+/* Reset some default styles */
+
+/* Remove margin and padding from all elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Use border-box to include borders and padding in element width */
+}
+
+/* Set a base font size and family for better consistency */
+html {
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+/* Set the base line height for better text legibility */
+body {
+  line-height: 1.6;
+  font-family: 'Lato', sans-serif;
+}
+
+/* Remove the default list styles from ul and ol elements */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Remove text-decoration from anchor links */
+a {
+  text-decoration: none;
+}
+
+/* Set default styles for headings and paragraphs */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+}
+
+p {
+  margin-bottom: 1rem; /* Add some spacing between paragraphs */
+}

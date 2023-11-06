@@ -2,7 +2,10 @@
 import Section from './Section';
 import { useState } from 'react';
 import Button from './Button';
-import '../styles/CVHeader.css';
+import '../styles/cvHeader.css';
+import '../styles/buttons.css';
+
+import { formatLabel } from './utils';
 const inputFields = [
   { value: 'name' },
   { value: 'surname' },
@@ -18,11 +21,11 @@ function ContactDetails({ user }) {
   let county = user.county !== '' ? user.county + ',' : '';
 
   return (
-    <div>
+    <div className="about">
       <p>
         {address}, {county} {postCode}
       </p>
-      <p>
+      <p className="contact">
         <span>
           <b>M:</b> {mobile}{' '}
         </span>
@@ -34,19 +37,30 @@ function ContactDetails({ user }) {
   );
 }
 
-function EditUserInfoFields({ user, handleInputChange }) {
+function EditUserInfoFields({ user, handleInputChange, handleClick }) {
   return (
-    <div className="headerInputs">
-      {inputFields.map((input) => (
-        <input
-          className="headerInput"
-          key={input.index}
-          placeholder={input.value}
-          value={user[input.value]}
-          onChange={(e) => handleInputChange(e, input.value)}
+    <>
+      <div className="backdrop"> </div>
+      <div className="headerInputs">
+        {inputFields.map((input) => (
+          <label key={input.index}>
+            {formatLabel(input.value)}:
+            <input
+              className="headerInput"
+              placeholder={input.value}
+              value={user[input.value]}
+              onChange={(e) => handleInputChange(e, input.value)}
+            />
+          </label>
+        ))}
+        <Button
+          text={'Save'}
+          color={'white'}
+          handleClick={handleClick}
+          className={'saveButton'}
         />
-      ))}
-    </div>
+      </div>
+    </>
   );
 }
 
@@ -73,10 +87,11 @@ function CVHeader() {
   const editOrCloseButtonText = isEditing ? 'Close' : 'Edit';
   return (
     <>
-      <Section>
+      <Section className="header">
         {isEditing && (
           <EditUserInfoFields
             user={user}
+            handleClick={handleClick}
             handleInputChange={handleInputChange}
           />
         )}
@@ -92,8 +107,8 @@ function CVHeader() {
           }}
         />
         <Button
+          className={'button editHeaderButton'}
           handleClick={handleClick}
-          color="blue"
           text={editOrCloseButtonText}
         />
       </Section>
