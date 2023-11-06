@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
 import { formatLabel } from './utils';
 
@@ -8,7 +9,7 @@ function DateInput({
   placeholder,
   updateInputValues,
   property,
-  index,
+  // index,
   editErrorsObject,
 }) {
   const [error, setError] = useState('');
