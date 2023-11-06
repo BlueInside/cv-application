@@ -84,6 +84,7 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
     }
   }
 
+  // Checks if errors object contain any properties that return true (are invalid)
   function hasAnyErrors() {
     for (const error in errors) {
       if (errors[error]) return true;
@@ -91,6 +92,7 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
     return false;
   }
 
+  // Edits errors object
   function editErrorsObject(property, value) {
     if (property === 'responsibilities') {
       const newErrorsObject = {
@@ -105,24 +107,40 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
     console.log(errors);
   }
 
-  // ERRORS
+  // validates inputs during rendering
   function validateInput(property, value) {
+    // Properties that have max length restrain
     const hasMaxLengthValidation =
       property === 'companyName' || property === 'position';
+
+    // Properties that have special chars validation
     const hasSpecialCharsValidation =
       property === 'companyName' || property === 'position';
+    // Regex pattern for special chars validation
     const validPattern = /^[\p{L}\s.,!?&-]*$/u;
+
+    // Checks if input is not empty
     if (value === '') {
       editErrorsObject(property, true);
-    } else if (hasMaxLengthValidation && value.length > 50) {
+    }
+
+    // Checks if input's value is not longer than 50
+    else if (hasMaxLengthValidation && value.length > 50) {
       editErrorsObject(property, true);
-    } else if (hasSpecialCharsValidation && !validPattern.test(value)) {
+    }
+
+    // Checks for special chars
+    else if (hasSpecialCharsValidation && !validPattern.test(value)) {
       editErrorsObject(property, true);
-    } else {
+    }
+
+    // Property is valid edits error object
+    else {
       editErrorsObject(property, false);
     }
   }
 
+  // Validates all responsibilities inside inputValues.responsibilities array
   function validateResponsibilities() {
     const respArr = inputValues.responsibilities;
     if (respArr) {
@@ -221,6 +239,7 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
             text={'Save'}
             handleClick={(e) => {
               e.preventDefault();
+              // TODO don't console log error but display it !
               if (hasAnyErrors()) console.log('Errors');
               else {
                 handleSaveButton(inputValues);
