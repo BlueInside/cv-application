@@ -4,12 +4,6 @@ import Button from './Button';
 import LabeledInput from './LabeledInput';
 import DateInput from './DateInput';
 import { formatLabel } from './utils';
-// import {
-//   hasAnyErrors,
-//   editErrorsObject,
-//   validateInput,
-//   validateResponsibilities,
-// } from './errorsHandler';
 
 // Used as key for DisplayResponsibilities and WorkInput
 let count = 0;
@@ -71,7 +65,7 @@ function WorkInput({ work, property, updateInputValues, editErrorsObject }) {
 function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
   const [workObject, setWorkObject] = useState({ ...work });
   // Object that will store errors from all inputs that occur on change
-let errors = {};
+  let errors = {};
   // Stores values of displayed inputs
   let inputValues = { ...workObject };
   const inputs = inputList(inputValues);
@@ -133,13 +127,13 @@ let errors = {};
     const respArr = inputValues.responsibilities;
     if (respArr) {
       for (let index = 0; index < respArr.length; index++) {
-  const resp = respArr[index];
-  if (resp.trim() === '') return true;
-  }
+        const resp = respArr[index];
+        if (resp.trim() === '') return true;
+      }
       return false;
-  } else {
-  return false;
-  }
+    } else {
+      return false;
+    }
   }
 
   // Adds empty responsibility to the work object
@@ -157,7 +151,6 @@ let errors = {};
     newWorkObject.responsibilities.splice(index, 1);
     setWorkObject(newWorkObject);
   }
-
 
   // Creates array with inputs based on work object
   function inputList(work) {
