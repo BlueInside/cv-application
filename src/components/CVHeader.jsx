@@ -69,7 +69,7 @@ function CVHeader() {
     updatedUser[property] = e.target.value;
     setUser(updatedUser);
   }
-
+  const editOrCloseButtonText = isEditing ? 'Close' : 'Edit';
   return (
     <>
       <Section>
@@ -90,7 +90,11 @@ function CVHeader() {
             county: user.county,
           }}
         />
-        <Button handleClick={handleClick} color="blue" text={'Edit'} />
+        <Button
+          handleClick={handleClick}
+          color="blue"
+          text={editOrCloseButtonText}
+        />
       </Section>
     </>
   );
