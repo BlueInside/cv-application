@@ -30,6 +30,7 @@ function EducationSection() {
           return newEducation;
         } else return obj;
       });
+      setState('view');
       setEducation(updatedEducations);
     }
   }
@@ -37,6 +38,7 @@ function EducationSection() {
   function handleSubmitForm(newEducation) {
     if (isAdding) {
       newEducation.id = count += 1;
+      setState('view');
       setEducation([...education, newEducation]);
     }
   }
