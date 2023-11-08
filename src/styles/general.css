@@ -2,6 +2,23 @@ body {
   margin: 20px;
   max-width: 900px;
 }
+
+fieldset {
+  border: none;
+}
+
+legend {
+  font-size: 3rem;
+  font-weight: 700;
+}
+.warning {
+  background-color: #ff3333;
+  border: 1px solid black;
+  border-radius: 15px;
+  display: block;
+  margin-top: 2rem;
+  text-align: center;
+}
 .separator {
   border-top: 1px solid #ccc; /* Adjust the color and thickness as needed */
   margin-top: 20px; /* Adjust the spacing between sections */

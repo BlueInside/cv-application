@@ -13,9 +13,10 @@ h2 {
 .educationFormInputs {
   display: flex;
   flex-direction: column;
+  padding-top: 1rem;
 }
 .educationFormInputs input {
-  height: 3rem;
+  height: 4rem;
 }
 .buttonsContainer {
   display: flex;
@@ -34,4 +35,13 @@ h2 {
   position: absolute;
   top: 0;
   right: 0;
+}
+
+.formContainer {
+  position: absolute;
+  max-width: 800px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
 }
