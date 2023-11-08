@@ -43,6 +43,14 @@ function EducationSection() {
     }
   }
 
+  function handleRemoveEducation(id) {
+    let updatedEducation = [...education];
+    updatedEducation = updatedEducation.filter(
+      (education) => education.id !== id
+    );
+    setEducation(updatedEducation);
+  }
+
   // Closes form, hides edit, add Education components by setting view state
   function handleCloseForm(e) {
     e.preventDefault(), setState('view');
@@ -71,7 +79,13 @@ function EducationSection() {
             {education.date}
           </p>
         </div>
-        <Button text={'edit'} handleClick={handleClick} />
+        <div className="educationButtonsWrapper">
+          <Button text={'edit'} handleClick={handleClick} />
+          <Button
+            text={'remove'}
+            handleClick={() => handleRemoveEducation(education.id)}
+          />
+        </div>
       </div>
     );
   }
