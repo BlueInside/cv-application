@@ -14,7 +14,9 @@ h2 {
   display: flex;
   flex-direction: column;
   padding-top: 1rem;
+  margin-top: 2rem;
 }
+
 .educationFormInputs input {
   height: 4rem;
 }
@@ -46,9 +48,9 @@ h2 {
   width: 80%;
 }
 
-.educationButtonsWrapper {
+/* .educationButtonsWrapper {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-  margin-bottom: 1.5rem;
-}
+  margin-bottom: 1rem;
+} */

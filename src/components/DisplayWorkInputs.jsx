@@ -21,22 +21,30 @@ function DisplayResponsibilities({
     <>
       <p>Responsibilities: </p>
       {responsibilities.map((responsibility, index) => (
-        <div key={count++}>
-          <LabeledInput
-            id={'responsibility' + index}
-            index={index}
-            property={'responsibilities'}
-            value={responsibility}
-            label={index + 1}
-            updateInputValues={updateInputValues}
-            placeholder={'Enter responsibility here.'}
-            editErrorsObject={editErrorsObject}
-            validateResponsibilities={validateResponsibilities}
-          />
-          <Button
-            text={'Remove Me'}
-            handleClick={(e) => handleRemoveResponsibility(e, index)}
-          />
+        <div key={index}>
+          <hr />
+          <div key={'responsibility' + count++} className="responsibility">
+            <LabeledInput
+              key={count++}
+              id={'responsibility' + index}
+              index={index}
+              property={'responsibilities'}
+              value={responsibility}
+              label={index + 1}
+              updateInputValues={updateInputValues}
+              placeholder={'Enter responsibility here.'}
+              editErrorsObject={editErrorsObject}
+              validateResponsibilities={validateResponsibilities}
+            />
+          </div>
+
+          <div className="responsibilityButtonWrapper">
+            <Button
+              className={'button responsibilityButton'}
+              text={'Remove Me'}
+              handleClick={(e) => handleRemoveResponsibility(e, index)}
+            />
+          </div>
         </div>
       ))}
     </>
@@ -46,9 +54,11 @@ function DisplayResponsibilities({
 // Creates labeled input
 function WorkInput({ work, property, updateInputValues, editErrorsObject }) {
   return (
-    <div key={count++}>
+    // <div key={count++}>
+    <>
       {/* Formats label based on property name space Capitals and UpperCase first letter */}
       <LabeledInput
+        key={count++}
         id={property}
         property={property}
         value={work[property]}
@@ -57,14 +67,22 @@ function WorkInput({ work, property, updateInputValues, editErrorsObject }) {
         updateInputValues={updateInputValues}
         editErrorsObject={editErrorsObject}
       />
-    </div>
+    </>
+    // </div>
   );
 }
 
 // Component accepts work object and returns labeled inputs
-function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
+function DisplayWorkInputs({
+  work,
+  handleCancelButton,
+  handleSaveButton,
+  isEditing,
+  isAdding,
+}) {
   const [workObject, setWorkObject] = useState({ ...work });
   const [isFormInvalid, setIsFormInvalid] = useState(false);
+
   // Object that will store errors from all inputs that occur on change
   let errors = {};
   // Stores values of displayed inputs
@@ -228,32 +246,45 @@ function DisplayWorkInputs({ work, handleCancelButton, handleSaveButton }) {
 
   // Returns form with inputs to edit to user
   return (
-    <form action="#">
-      <legend>
-        <fieldset>
-          {inputs.map((input) => input)}
-          <Button
-            text={'Add Responsibility'}
-            handleClick={(e) => addResponsibility(e)}
-          />
+    <>
+      <div className="backdrop"></div>
+      <div className="workFormWrapper">
+        <form action="#">
+          <legend className="formTitle">
+            {isAdding && 'Add work: '}
+            {isEditing && 'Edit work: '}
 
-          {/* TODO Make p show and hide after few seconds with CSS */}
-          {isFormInvalid && <p>Please correct above errors before saving!</p>}
-          <Button text={'Cancel'} handleClick={handleCancelButton} />
-          <Button
-            text={'Save'}
-            handleClick={(e) => {
-              e.preventDefault();
-              if (hasAnyErrors()) setIsFormInvalid(true);
-              else {
-                setIsFormInvalid(false);
-                handleSaveButton(inputValues);
-              }
-            }}
-          />
-        </fieldset>
-      </legend>
-    </form>
+            <fieldset>
+              <div className="formInputsWrapper">
+                {inputs.map((input) => input)}
+              </div>
+              <div className="workButtonsWrapper">
+                <Button
+                  text={'Add Responsibility'}
+                  handleClick={(e) => addResponsibility(e)}
+                />
+                {/* TODO Make p show and hide after few seconds with CSS */}
+                {isFormInvalid && (
+                  <p>Please correct above errors before saving!</p>
+                )}
+                <Button text={'Cancel'} handleClick={handleCancelButton} />
+                <Button
+                  text={'Save'}
+                  handleClick={(e) => {
+                    e.preventDefault();
+                    if (hasAnyErrors()) setIsFormInvalid(true);
+                    else {
+                      setIsFormInvalid(false);
+                      handleSaveButton(inputValues);
+                    }
+                  }}
+                />
+              </div>
+            </fieldset>
+          </legend>
+        </form>
+      </div>
+    </>
   );
 }
 

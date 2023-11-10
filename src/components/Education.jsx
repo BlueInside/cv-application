@@ -79,7 +79,7 @@ function EducationSection() {
             {education.date}
           </p>
         </div>
-        <div className="educationButtonsWrapper">
+        <div className="buttonsWrapper">
           <Button text={'edit'} handleClick={handleClick} />
           <Button
             text={'remove'}

@@ -5,30 +5,37 @@ import { formatDateToMonthYear } from './utils';
 import { worksData } from './data';
 import Button from './Button';
 import DisplayWorkInputs from './DisplayWorkInputs';
+import '../styles/work.css';
 
 // Used as key when creating new Job component
 let count = 0;
 
 // Render list element
 function ResponsibilitiesList({ responsibility }) {
-  return <li>{responsibility}</li>;
+  return <li>- {responsibility}</li>;
 }
 
 // Job component that render information about the job
 function Job({ work }) {
-  const { companyName, position, title, responsibilities, startDate, endDate } =
-    work;
+  const { companyName, position, responsibilities, startDate, endDate } = work;
 
   const hasResponsibilities = responsibilities.length > 0;
 
   return (
     <>
-      <p>{companyName}</p>
+      <div className="workPositionSection">
+        <p style={{ flex: '1' }}>{position}</p>
+        <p>|</p>
+        <p style={{ flex: '1' }}>
+          {formatDateToMonthYear(startDate)} - {formatDateToMonthYear(endDate)}
+        </p>
+      </div>
+
       <p>
-        {formatDateToMonthYear(startDate)} - {formatDateToMonthYear(endDate)}
+        <b>{companyName}</b>
       </p>
-      <p>{position}</p>
-      <p>{title}</p>
+
+      {/* <p>{title}</p> */}
       <p>{hasResponsibilities && 'Responsibilities: '}</p>
       <ul>
         {hasResponsibilities &&
@@ -52,7 +59,7 @@ function WorkExperience() {
     position: '',
     startDate: '',
     endDate: '',
-    title: '',
+    // title: '',
     responsibilities: [],
   };
   const selectedWorkObject = works.filter((work) => work.id === editWorkId)[0];
@@ -65,7 +72,6 @@ function WorkExperience() {
     workObject.id = count++;
     const newWorksObject = [...works];
     newWorksObject.push(workObject);
-    console.log(newWorksObject);
     setWorks(newWorksObject);
     setState('view');
   }
@@ -91,15 +97,28 @@ function WorkExperience() {
     setState('edit');
     setEditWorkId(id);
   }
+
+  function handleRemoveButton(id) {
+    const newWorksArr = works.filter((work) => work.id !== id);
+    setWorks(newWorksArr);
+  }
   // companyName, position, title, responsibilities
   return (
     <>
       <Section className={'work'}>
         <hr className="separator"></hr>
-        <h2>Practical Experience: </h2>
-        <Button text={'+'} handleClick={() => setState('add')} />
+        <div className="titleWrapper">
+          <h2 className="title">Practical Experience: </h2>
+          <Button
+            className="button addButton"
+            text={'+'}
+            handleClick={() => setState('add')}
+          />
+        </div>
         {(isAdding || isEditing) && (
           <DisplayWorkInputs
+            isEditing={isEditing}
+            isAdding={isAdding}
             work={isAdding ? newWorkData : selectedWorkObject}
             handleCancelButton={handleCancelButton}
             handleSaveButton={isEditing ? editWork : addWork}
@@ -107,12 +126,18 @@ function WorkExperience() {
         )}
 
         {works.map((work) => (
-          <div key={work.id}>
+          <div key={work.id} className="description">
             <Job work={{ ...work }} />
-            <Button
-              text={'Edit'}
-              handleClick={(e) => handleEditButton(e, work.id)}
-            />
+            <div className="buttonsWrapper">
+              <Button
+                text={'Edit'}
+                handleClick={(e) => handleEditButton(e, work.id)}
+              />
+              <Button
+                text={'Remove'}
+                handleClick={() => handleRemoveButton(work.id)}
+              />
+            </div>
           </div>
         ))}
       </Section>

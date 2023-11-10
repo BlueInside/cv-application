@@ -57,8 +57,14 @@ function LabeledInput({
   // ADD ERROR TO LABELED INPUT WE HAVE INDEX!
   return (
     <>
-      <label htmlFor={id}>{label}:* </label>
+      <label
+        className={`bold ${isResponsibility && 'responsibilityCount'}`}
+        htmlFor={id}
+      >
+        {label}:*{' '}
+      </label>
       <input
+        className={isResponsibility ? 'responsibilityInput' : 'workInput'}
         type="text"
         id={id}
         value={inputValue}
@@ -69,7 +75,13 @@ function LabeledInput({
           updateInputValues(property, e.target.value, index);
         }}
       />
-      {error && <p>{error}</p>}
+      <p
+        className={`warning  ${error ? 'active' : 'hidden'} ${
+          isResponsibility && 'responsibilityError'
+        }`}
+      >
+        {error}
+      </p>
     </>
   );
 }

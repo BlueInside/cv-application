@@ -16,6 +16,13 @@
   background-color: #0056b3; /* Button background color on hover */
 }
 
+.buttonsWrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
 /* Save Button Styles */
 .saveButton {
   background-color: #007bff;

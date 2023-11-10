@@ -36,7 +36,7 @@ export default function EducationForm({
       <div className="backdrop"></div>
       <div className="formContainer">
         <form action="">
-          <legend>
+          <legend className="formTitle">
             {formTitle}
             <fieldset className="educationForm">
               <div className="educationFormInputs">

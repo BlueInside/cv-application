@@ -14,11 +14,11 @@ const educationData = [
 const worksData = [
   {
     id: 0,
-    companyName: 'some company',
-    position: 'janitor',
+    companyName: 'Company name',
+    position: 'Janitor',
     startDate: '2023-05-18',
     endDate: '2023-10-23',
-    title: 'quick-mop',
+    // title: 'quick-mop',
     responsibilities: [
       'first responsibility',
       'second responsibility',

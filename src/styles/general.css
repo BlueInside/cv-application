@@ -1,5 +1,5 @@
 body {
-  margin: 20px;
+  margin: 1rem;
   max-width: 900px;
 }
 
@@ -7,16 +7,31 @@ fieldset {
   border: none;
 }
 
-legend {
+.bold {
+  font-weight: 700;
+}
+
+.formTitle {
   font-size: 3rem;
   font-weight: 700;
 }
+
+.hidden {
+  opacity: 0;
+  border: none;
+  transition: opacity 0.25s ease-in, border 0.25s ease-in;
+}
+
+.active {
+  opacity: 1;
+  border: 1px solid black;
+  transition: opacity 0.25s ease-in, border 0.25s ease-in;
+}
 .warning {
   background-color: #ff3333;
-  border: 1px solid black;
   border-radius: 15px;
-  display: block;
-  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
   text-align: center;
 }
 .separator {
@@ -51,6 +66,14 @@ legend {
   padding: 5px 15px;
 }
 
+/* .formWrapper {
+  position: absolute;
+  max-width: 800px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+} */
 @media (min-width: 900px) {
   body {
     margin: auto;

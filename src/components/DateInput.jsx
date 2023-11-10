@@ -14,7 +14,6 @@ function DateInput({
 }) {
   const [error, setError] = useState('');
   const [state, setState] = useState(value);
-  const hasError = error !== '';
   useEffect(() => {
     validateDate(state);
   });
@@ -39,24 +38,25 @@ function DateInput({
 
   return (
     <>
-      <label htmlFor={id}>
+      <label className="bold" htmlFor={id}>
+        {' '}
         {label}*{' '}
-        <input
-          type="date"
-          id={id}
-          name={property}
-          value={state}
-          onChange={(e) => {
-            console.log(e.target.value);
-            const monthYearDate = e.target.value;
-            setState(monthYearDate);
-            validateDate(e.target.value);
-            updateInputValues(property, monthYearDate);
-          }}
-          placeholder={placeholder}
-        />
       </label>
-      {hasError && <p className="error">{error} </p>}
+      <input
+        className="workInput"
+        type="date"
+        id={id}
+        name={property}
+        value={state}
+        onChange={(e) => {
+          const monthYearDate = e.target.value;
+          setState(monthYearDate);
+          validateDate(e.target.value);
+          updateInputValues(property, monthYearDate);
+        }}
+        placeholder={placeholder}
+      />
+      <p className={`warning  ${error ? 'active' : 'hidden'}`}>{error}</p>
     </>
   );
 }
