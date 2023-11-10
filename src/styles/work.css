@@ -52,6 +52,7 @@
 .responsibilityButton {
   flex: 0.4;
   height: 4rem;
+  margin-top: 2rem;
 }
 
 .workButtonsWrapper {
