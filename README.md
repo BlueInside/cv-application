@@ -2,8 +2,6 @@
 
 Welcome to the CV Application project! This project was my first exercise with React, where I built a modern and responsive interface for creating and managing CVs. The application allows users to input and update their personal information, education, work experience, and skills.
 
-![CV Application Interface](sandbox:/mnt/data/A_modern_CV_application_interface_created_with_Rea.png)
-
 ## Table of Contents
 
 - [Features](#features)
